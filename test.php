@@ -1,4 +1,4 @@
 <?php
      PHPINFO();
-     echo '112121ff211122';
+     echo '1w21ff211122';
      die;
