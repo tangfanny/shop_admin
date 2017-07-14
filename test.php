@@ -1,3 +1,3 @@
 <?php
    PHPINFO();
- echo 'ddd1dd1121';
+ echo '1121';
