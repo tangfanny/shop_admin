@@ -1,3 +1,3 @@
 <?php
    PHPINFO();
- echo '13333232';
+ echo '13w32';
