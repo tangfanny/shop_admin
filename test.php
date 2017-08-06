@@ -1,3 +1,3 @@
 <?php
    PHPINFO();
- echo '1312';
+ echo '131222';
