@@ -1,3 +1,3 @@
 <?php
    PHPINFO();
- echo '22222';
+ echo '2222';
