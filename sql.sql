@@ -66,7 +66,7 @@ create table jd_admin(
 		username varchar(30) not null  comment '管理员账号',
 		password char(32) not null  comment '密码',
 		primary key(id)
-	)engine=Myisam default charset=utf8 comment '管理员表';
+	)engine=Innodb default charset=utf8 comment '管理员表';
 insert into jd_admin values(1,'root', '5ac2be6bdb7f1eead87a76556c755b3e');
 
 
