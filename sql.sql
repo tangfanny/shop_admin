@@ -86,7 +86,7 @@ CREATE TABLE jd_attribute
 	id mediumint unsigned not null auto_increment,
 	attr_name varchar(30) not null comment '属性名称',
 	attr_type enum("唯一","单选") not null comment '属性的类型',
-	attr_option_values varchar(300) not null default '' comment '属性的可选值，多个可选用，隔开',
+	attr_option_values varchar(300) not null default '' comment '属性的可选值，多个可选用逗号隔开',
 	type_id mediumint unsigned not null comment '类型id',
 	primary key (id),
 	key type_id(type_id)
