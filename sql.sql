@@ -76,7 +76,7 @@ create table jd_goods_type(
 	id mediumint  unsigned not null auto_increment,
 	type_name  varchar(55) not null  comment '商品类型名称',
 	primary key(id)
-)engine=Innodb default charset=utf8 comment '商品类型表';
+)engine=Innodb default  charset=utf8  comment '商品类型表';
 
 
 
