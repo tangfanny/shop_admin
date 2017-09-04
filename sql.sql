@@ -90,7 +90,7 @@ CREATE TABLE jd_attribute
 	type_id mediumint unsigned not null comment '类型id',
 	primary key (id),
 	key type_id(type_id)
-)engine=MyISAM default charset=utf8 comment '属性表';
+)engine=Innodb default charset=utf8 comment '属性表';
 
 SELECT a.*,GROUP_CONCAT(c.role_name) role_name FROM jd_admin a LEFT JOIN 
 jd_admin_role b ON a.id=b.role_id LEFT JOIN jd_role c ON b.role_id=c.id 
