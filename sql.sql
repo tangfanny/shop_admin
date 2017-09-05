@@ -108,7 +108,7 @@ create table jd_member_level(
 	num_top mediumint unsigned not null comment '积分下限',
 	unique level_name(level_name),
 	primary key(id)
-)engine=Myisam default charset=utf8 comment '会员级别表';
+)engine=Innodb default charset=utf8 comment '会员级别表';
 
 
 DROP TABLE IF EXISTS jd_member;
