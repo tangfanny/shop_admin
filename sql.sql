@@ -124,7 +124,7 @@ create table jd_member(
 	add_time datetime not null comment '注册时间',
 	unique email(email),
 	primary key(id)
-)engine=Myisam default charset=utf8 comment '会员表';
+)engine=Innodb default charset=utf8 comment '会员表';
 
 DROP TABLE IF EXISTS jd_goods_attr;
 create table jd_goods_attr(
