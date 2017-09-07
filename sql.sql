@@ -134,7 +134,7 @@ create table jd_goods_attr(
 	goods_id mediumint unsigned not null  comment '商品id',
 	key goods_id(goods_id),
 	primary key(id)
-)engine=Myisam default charset=utf8 comment '商品属性表';
+)engine=Innodb default charset=utf8 comment '商品属性表';
 
 
 alter table jd_goods add type_id mediumint unsigned not null default '0' comment '类型id';
