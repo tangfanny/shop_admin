@@ -12,7 +12,7 @@ create table jd_goods(
 	primary key (id),
 	key shop_price(shop_price),
 	key is_on_sale(is_on_sale)
-)engine=Myisam default charset=utf8;
+)engine=Innodb default charset=utf8;
 
 	create table jd_goods_pics(
 		id mediumint unsigned not null auto_increment,
