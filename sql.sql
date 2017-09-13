@@ -21,7 +21,7 @@ create table jd_goods(
 		goods_id mediumint unsigned not null default '0' comment '对应的商品ID',
 		primary key(id),
 		key goods_id(goods_id)
-	)engine=Myisam default charset=utf8 comment '商品图片表';
+	)engine=Innodb default charset=utf8 comment '商品图片表';
 
 	
 	
