@@ -44,7 +44,7 @@ create table jd_role_pri(
 		pri_id mediumint unsigned not null  comment '权限的ID',
 		key role_id(role_id),
 		key pri_id(pri_id)
-	)engine=Myisam default charset=utf8 comment '角色所拥有的权限表';
+	)engine=Innodb default charset=utf8 comment '角色所拥有的权限表';
 
 
 create table jd_role(
