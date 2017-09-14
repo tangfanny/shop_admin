@@ -36,7 +36,7 @@ create table jd_pri(
 		sort_num tinyint unsigned not null default '100' comment '排序字段',
 		parent_id mediumint unsigned not null default '0' comment '递归使用无限级，上级权限的ID，如果为0代表顶级权限' ,
 		primary key(id)
-	)engine=Myisam default charset=utf8 comment '权限/按钮表';
+	)engine=Innodb default charset=utf8 comment '权限/按钮表';
 alter table jd_privilege add sort_num tinyint unsigned not null default '100' comment '排序字段';
 	
 create table jd_role_pri(
