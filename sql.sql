@@ -51,7 +51,7 @@ create table jd_role(
 		id mediumint unsigned not null auto_increment,
 		role_name varchar(30) not null  comment '角色名称',
 		primary key(id)
-	)engine=Myisam default charset=utf8 comment '角色表';
+	)engine=Innodb default charset=utf8 comment '角色表';
 
 create table jd_admin_role(
 		admin_id mediumint unsigned not null ,
