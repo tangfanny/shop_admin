@@ -58,7 +58,7 @@ create table jd_admin_role(
 		role_id mediumint unsigned not null,
 		key pri_id(admin_id),
 		key role_id(role_id)
-	)engine=Myisam default charset=utf8 comment '管理员角色表';
+	)engine=Innodb default charset=utf8 comment '管理员角色表';
 
 
 create table jd_admin(
