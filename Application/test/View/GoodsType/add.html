@@ -1,0 +1,37 @@
+<layout name="../../Layout/layout" />
+<h1>
+	<span class="action-span"><a href="<?php echo U('lst?p='.I('get.p')); ?>">返回商品类型表列表</a></span>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 添加新商品类型表 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="main_form" method="POST" action="__SELF__" enctype="multipart/form-data">
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">商品类型名称：</td>
+                <td>
+                    <input  type="text" name="type_name" size="60" maxlength="55" value="" />
+                	<span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="99" align="center">
+                    <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+$("form[name='main_form']").validate({
+	ignore:"",
+	rules:{
+		type_name:{
+			required:true, 
+			maxlength:55 
+		},
+	}
+});
+</script>

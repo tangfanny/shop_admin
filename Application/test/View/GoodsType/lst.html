@@ -1,0 +1,49 @@
+<layout name="../../Layout/layout" />
+<h1>
+	<span class="action-span"><a href="<?php echo U('add?p='.I('get.p')); ?>">添加新商品类型表</a></span>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 商品类型表列表 </span>
+    <div style="clear:both"></div>
+</h1>
+<!-- 搜索 -->
+<div class="form-div search_form_div">
+	<a href="#" onclick="$('form[name=search_form]').toggle();" style="width:99%;display:block;padding:5px;cursor:pointer;text-align:center;background:#BBDDE5;">展开/折叠 搜索/排序 框</a>
+    <form method="GET" name="search_form" style="display:none;">
+		<p>
+			商品类型名称：
+	   		<input type="text" name="type_name" size="30" value="<?php echo I('get.type_name'); ?>" />
+		</p>
+		<p><input type="submit" value=" 搜索 " class="button" /></p>
+		<!-- 排序 -->
+		<p>
+			排序方式： 
+			<input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_asc" name="odby" <?php if(I('get.odby') == 'id_asc') echo 'checked="checked"'; ?> /> 按添加时间升序  
+			<input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_desc" name="odby" <?php if(!I('get.odby') || I('get.odby') == 'id_desc') echo 'checked="checked"'; ?> /> 按添加时间降序
+		</p>
+    </form>
+</div>
+<!-- 商品列表 -->
+<div class="list-div" id="listDiv">
+	<table cellpadding="3" cellspacing="1">
+    	<tr>
+            <th >商品类型名称</th>
+			<th width="120">添加时间</th>
+			<th width="60">操作</th>
+        </tr>
+		<?php foreach ($data as $k => $v): ?>            
+			<tr>
+				<td><?php echo $v['type_name']; ?></td>
+				<td><?php echo $v['addtime']; ?></td>
+		        <td align="center">
+		        	<a href="<?php echo U('save?id='.$v['id'].'&p='.I('get.p')); ?>" title="编辑">编辑</a> |
+	                <a href="<?php echo U('delete?id='.$v['id'].'&p='.I('get.p')); ?>" onclick="return confirm('确定要删除吗？');" title="移除">移除</a> 
+		        </td>
+	        </tr>
+        <?php endforeach; ?> 
+		<?php if(preg_match('/\d/', $page)): ?>  
+        <tr><td align="right" nowrap="true" colspan="99" height="30"><?php echo $page; ?></td></tr> 
+        <?php endif; ?> 
+	</table>
+</div>
+<script>
+</script>

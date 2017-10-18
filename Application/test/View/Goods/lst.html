@@ -1,0 +1,87 @@
+<layout name="../../Layout/layout" />
+<h1>
+	<span class="action-span"><a href="<?php echo U('add?p='.I('get.p')); ?>">添加新商品</a></span>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 商品列表 </span>
+    <div style="clear:both"></div>
+</h1>
+<!-- 搜索 -->
+<div class="form-div search_form_div">
+	<a href="#" onclick="$('form[name=search_form]').toggle();" style="width:99%;display:block;padding:5px;cursor:pointer;text-align:center;background:#BBDDE5;">展开/折叠 搜索/排序 框</a>
+    <form method="GET" name="search_form" style="display:none;">
+		<p>
+			商品名称：
+	   		<input type="text" name="goods_name" size="30" value="<?php echo I('get.goods_name'); ?>" />
+		</p>
+		<p>
+			商品市场价格：
+	   		从 <input id="market_pricefrom" type="text" name="market_pricefrom" size="15" value="<?php echo I('get.market_pricefrom'); ?>" /> 
+		    到 <input id="market_priceto" type="text" name="market_priceto" size="15" value="<?php echo I('get.market_priceto'); ?>" />
+		</p>
+		<p>
+			商品本店价格：
+	   		从 <input id="shop_pricefrom" type="text" name="shop_pricefrom" size="15" value="<?php echo I('get.shop_pricefrom'); ?>" /> 
+		    到 <input id="shop_priceto" type="text" name="shop_priceto" size="15" value="<?php echo I('get.shop_priceto'); ?>" />
+		</p>
+		<p>
+			是否上架：
+			<input type="radio" value="-1" name="is_on_sale" <?php if(I('get.is_on_sale', -1) == -1) echo 'checked="checked"'; ?> /> 全部 
+			<input type="radio" value="是" name="is_on_sale" <?php if(I('get.is_on_sale', -1) == '是') echo 'checked="checked"'; ?> /> 是 
+			<input type="radio" value="否" name="is_on_sale" <?php if(I('get.is_on_sale', -1) == '否') echo 'checked="checked"'; ?> /> 否 
+		</p>
+		<p>
+			商品描述：
+	   		<input type="text" name="goods_desc" size="30" value="<?php echo I('get.goods_desc'); ?>" />
+		</p>
+		<p>
+			库存量：
+	   		<input type="text" name="goods_number" size="30" value="<?php echo I('get.goods_number'); ?>" />
+		</p>
+		<p><input type="submit" value=" 搜索 " class="button" /></p>
+		<!-- 排序 -->
+		<p>
+			排序方式： 
+			<input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_asc" name="odby" <?php if(I('get.odby') == 'id_asc') echo 'checked="checked"'; ?> /> 按添加时间升序  
+			<input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_desc" name="odby" <?php if(!I('get.odby') || I('get.odby') == 'id_desc') echo 'checked="checked"'; ?> /> 按添加时间降序
+		</p>
+    </form>
+</div>
+<!-- 商品列表 -->
+<div class="list-div" id="listDiv">
+	<table cellpadding="3" cellspacing="1">
+    	<tr>
+            <th >商品logo</th>
+            <th >商品小logo</th>
+            <th >商品名称</th>
+            <th >商品市场价格</th>
+            <th >商品本店价格</th>
+            <th >是否上架</th>
+            <th >商品描述</th>
+            <th >库存量</th>
+			<th width="120">添加时间</th>
+			<th width="60">操作</th>
+        </tr>
+		<?php foreach ($data as $k => $v): ?>            
+			<tr>
+				<td><?php echo $v['logo']; ?></td>
+				<td><?php echo $v['sm_logo']; ?></td>
+				<td><?php echo $v['goods_name']; ?></td>
+				<td><?php echo $v['market_price']; ?></td>
+				<td><?php echo $v['shop_price']; ?></td>
+				<td><?php echo $v['is_on_sale']; ?></td>
+				<td><?php echo $v['goods_desc']; ?></td>
+				<td><?php echo $v['goods_number']; ?></td>
+				<td><?php echo $v['addtime']; ?></td>
+		        <td align="center">
+		        	<a href="<?php echo U('save?id='.$v['id'].'&p='.I('get.p')); ?>" title="编辑">编辑</a> |
+	                <a href="<?php echo U('delete?id='.$v['id'].'&p='.I('get.p')); ?>" onclick="return confirm('确定要删除吗？');" title="移除">移除</a> 
+		        </td>
+	        </tr>
+        <?php endforeach; ?> 
+		<?php if(preg_match('/\d/', $page)): ?>  
+        <tr><td align="right" nowrap="true" colspan="99" height="30"><?php echo $page; ?></td></tr> 
+        <?php endif; ?> 
+	</table>
+</div>
+<script>
+</script>

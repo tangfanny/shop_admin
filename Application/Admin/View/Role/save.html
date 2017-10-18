@@ -1,0 +1,116 @@
+<Layout name="../../Layout/layout"/>
+
+<h1>
+    <span class="action-span"><a href="<?php echo U('lst');?>">角色列表</a>
+    </span>
+    <span class="action-span1"><a href="__GROUP__">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 编辑角色 </span>
+    <div style="clear:both"></div>
+</h1>
+
+<div class="tab-div">
+    <div id="tabbar-div">
+        <p>
+            <span class="tab-front" id="general-tab">通用信息</span>
+        </p>
+    </div>
+    <div id="tabbody-div">
+        <form  action="__SELF__" method="post">
+        	<input type="hidden" name="id" value="<?php echo $info['id'];?>"/>
+            <table width="90%" id="general-table" align="center">
+            	<tr>
+                <td class="label">角色名称</td>
+                <td>
+                	<input type="text" name="role_name" value="<?php echo $info['role_name']; ?>"/>
+                </td>
+            </tr>
+            	<tr>
+                <td class="label">选择权限</td>
+                <td>
+						<?php foreach($data as $k=>$v):	
+						//如果当前这个角色已经拥有这个权限，那么这个权限就是是选中的
+						if(strpos(','.$priId.',',','.$v['id'].',')!==FALSE)
+							$checked = 'checked="$checked"';
+							else
+							$checked = '';
+						?>	
+						<input class="pri_id" level="<?php echo $v['level'] ;?>" <?php echo $checked;?> type="checkbox" name="pri_id[]" value="<?php echo $v['id'] ;?>"/>
+						<?php echo str_repeat('&nbsp;',5*$v['level']) .$v['pri_name'] ;?></br>
+						<?php endforeach;?>
+                </td>
+            </tr>
+			 
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定修改 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+            </table>
+           
+        </form>
+    </div>
+</div>
+
+<!--
+	js客户端代码定义验证的规则
+-->
+<script type="text/javascript">
+	$("form[name=goods_form]").validate({
+		rules: {
+			role_name: {
+				// required:true 必须输入的字段
+				required: true
+			}
+		}
+	});
+	
+	$(".pri_id").click(function(){
+		//先取出当前这个level
+		var cur_level = $(this).attr('level');
+		
+		//判断是选中还是取消
+		if ($(this).attr('checked')) {
+			//选择前面所有的复选框
+			var box = $(this).prevAll(":checkbox");
+			//循环每一个判断，如果level小就是小一级的
+			$(box).each(function(k,v){
+				var level = $(v).attr('level');
+				if(level<cur_level)
+					$(v).attr("checked","checked");
+				//如果判断到了顶级就退出循环
+				if(level==0)
+					return false;
+			});
+		}else{
+			//取消选中
+			//选中前面所有的复选框
+			var box = $(this).nextAll(":checkbox");
+			$(box).each(function(k,v){
+				var level= $(v).attr('level');
+				if(level>cur_level)
+					$(v).removeAttr('checked');
+				if(level==0)
+					return false;
+			});
+		}
+	});
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

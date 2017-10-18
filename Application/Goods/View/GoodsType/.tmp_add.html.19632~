@@ -1,0 +1,122 @@
+<Layout name="../../Layout/layout"/>
+<h1>
+    <span class="action-span"><a href="<?php echo U('Goods/Goods/lst');?>">商品列表</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加商品 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="goods_type_form" method="post" action="__SELF__" enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">商品名称</td>
+                <td>
+               <input type="text" name="goods_name"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">市场价格</td>
+                <td>
+ <input type="text" name="market_price"/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">本店价格</td>
+                <td>
+              <input type="text" name="shop_price"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">是否上架</td>
+                <td>
+          <input type="radio" name="is_on_sale" value="是" checked="checked"/>是
+				<input type="radio" name="is_on_sale" value="否"/>否                </td>
+            </tr>
+            <tr>
+                <td class="label">库存量</td>
+                <td>
+                 <input type="text" name="goods_number"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品描述</td>
+                <td>
+        <textarea name="goods_desc" id="goods_desc"></textarea>
+                </td>
+            </tr>
+			 <tr>
+                <td class="label">商品相册:</td>
+                <td>
+                	<input type="button" id="add" value="再添加一张图片"/>
+					<ul></ul>
+                </td>
+            </tr>
+			
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定添加 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="footer">
+
+</body>
+</html>
+<!--
+	js客户端代码定义验证的规则
+-->
+<script type="text/javascript">
+	$("form[name=goods_form]").validate({
+		rules:{
+			goods_name:{
+				// required:true 必须输入的字段
+				required:true,
+				rangelength:[1,100],
+				remote:"<?php echo U('ajaxChkGoodsName'); ?>"
+			},
+			market_price:{
+				required:true,
+				number:true
+			},
+			shop_price:{
+				required:true,
+				number:true
+			},
+			goods_number:{
+				//digits:true 表示必须输入整数
+				required:true,
+				digits:true
+			}
+		},
+		messages:{
+			goods_name:{
+				remote:"该值已经存在"
+			}
+		}
+	});
+	
+	UE.getEditor('goods_desc', {
+	initialFrameWidth:"80%",
+	initialFrameHeight:"500"
+});
+/****************每次点击加一张图片*******************/
+	$("#add").click(function(){
+		//先选中ul标签
+		var ul = $(this).next('ul');
+		//向这个URL中添加一张图片   pic[]是因为上传的是多张图片
+		ul.append("<li><input type='button' value='-' onclick='$(this).parent().remove();' /> <input name='pics[]' type='file'/></li>");
+	});
+</script>
+
+
+
+
+
+
+
+
+

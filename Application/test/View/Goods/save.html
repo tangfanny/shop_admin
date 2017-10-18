@@ -1,0 +1,112 @@
+<layout name="../../Layout/layout" />
+<h1>
+	<span class="action-span"><a href="<?php echo U('lst?p='.I('get.p')); ?>">返回商品列表</a></span>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 添加新商品 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="main_form" method="POST" action="__SELF__" enctype="multipart/form-data" >
+    	<input type="hidden" name="id" value="<?php echo $data['id']; ?>" />
+		<input type="hidden" name="old_logo" value="<?php echo $data['logo']; ?>" />
+		<input type="hidden" name="old_big_logo" value="<?php echo $data['big_logo']; ?>" />
+		<input type="hidden" name="old_mid_logo" value="<?php echo $data['mid_logo']; ?>" />
+		<input type="hidden" name="old_sm_logo" value="<?php echo $data['sm_logo']; ?>" />
+		<input type="hidden" name="old_sm_logo" value="<?php echo $data['sm_logo']; ?>" />
+		<input type="hidden" name="old_big_sm_logo" value="<?php echo $data['big_sm_logo']; ?>" />
+		<input type="hidden" name="old_mid_sm_logo" value="<?php echo $data['mid_sm_logo']; ?>" />
+		<input type="hidden" name="old_sm_sm_logo" value="<?php echo $data['sm_sm_logo']; ?>" />
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">商品logo：</td>
+                <td>
+                	<input type="file" name="logo" /><br /> 
+                	<?php showImage($data['logo']); ?>                </td>
+            </tr>
+            <tr>
+                <td class="label">商品小logo：</td>
+                <td>
+                	<input type="file" name="sm_logo" /><br /> 
+                	<?php showImage($data['sm_logo']); ?>                </td>
+            </tr>
+            <tr>
+                <td class="label">商品名称：</td>
+                <td>
+                    <input  type="text" name="goods_name" size="60" maxlength="100" value="<?php echo $data['goods_name']; ?>" />
+                	<span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品市场价格：</td>
+                <td>
+                    <input  type="text" name="market_price" size="8"  value="<?php echo $data['market_price']; ?>" />
+                	<span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品本店价格：</td>
+                <td>
+                    <input  type="text" name="shop_price" size="8"  value="<?php echo $data['shop_price']; ?>" />
+                	<span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">是否上架：</td>
+                <td>
+                	<input type="radio" name="is_on_sale" value="是" <?php if($data['is_on_sale'] == '是') echo 'checked="checked"'; ?> />是 
+                	<input type="radio" name="is_on_sale" value="否" <?php if($data['is_on_sale'] == '否') echo 'checked="checked"'; ?> />否 
+                	<span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品描述：</td>
+                <td>
+                	<textarea id="goods_desc" name="goods_desc"><?php echo $data['goods_desc']; ?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">库存量：</td>
+                <td>
+                    <input  type="text" name="goods_number" size="8"  value="<?php echo $data['goods_number']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="99" align="center">
+                    <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+$("form[name='main_form']").validate({
+	ignore:"",
+	rules:{
+		logo:{
+			maxlength:150 
+		},
+		sm_logo:{
+			maxlength:150 
+		},
+		goods_name:{
+			required:true, 
+			maxlength:100 
+		},
+		market_price:{
+			required:true, 
+			number:true 
+		},
+		shop_price:{
+			required:true, 
+			number:true 
+		},
+		is_on_sale:{
+			required:true 
+		},
+		goods_number:{
+			digits:true 
+		},
+	}
+});
+</script>

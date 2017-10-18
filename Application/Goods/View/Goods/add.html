@@ -1,0 +1,210 @@
+<layout name="../../Layout/layout"/>
+<h1>
+    <span class="action-span"><a href="<?php echo U('Goods/Goods/lst');?>">商品列表</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加商品 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="goods_form" method="post" action="__SELF__" enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">商品logo</td>
+                <td>
+                    <input type="file" name="logo"/>
+                    <span class="require-field">*</span>
+					
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品名称</td>
+                <td>
+               <input type="text" name="goods_name"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品类型</td>
+                <td>
+                	<select name="type_id">
+                		<option value="" >请选择</option>
+						<?php foreach($tydata as $k=>$v): ?>
+						<option value="<?php echo $v['id']; ?>"><?php echo $v['type_name']; ?></option>
+						<?php endforeach; ?>
+                	</select>
+					<ul id="attribute"></ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">市场价格</td>
+                <td>
+ <input type="text" name="market_price"/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">本店价格</td>
+                <td>
+              <input type="text" name="shop_price"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">是否上架</td>
+                <td>
+          <input type="radio" name="is_on_sale" value="是" checked="checked"/>是
+				<input type="radio" name="is_on_sale" value="否"/>否                </td>
+            </tr>
+            <tr>
+                <td class="label">库存量</td>
+                <td>
+                 <input type="text" name="goods_number"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品描述</td>
+                <td>
+        <textarea name="goods_desc" id="goods_desc"></textarea>
+                </td>
+            </tr>
+			 <tr>
+                <td class="label">商品相册:</td>
+                <td>
+                	<input type="button" id="add" value="再添加一张图片"/>
+					<ul></ul>
+                </td>
+            </tr>
+			
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定添加 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="footer">
+
+</body>
+</html>
+<!--
+	js客户端代码定义验证的规则
+-->
+<script type="text/javascript">
+	$("form[name=goods_form]").validate({
+		rules:{
+			goods_name:{
+				// required:true 必须输入的字段
+				required:true,
+				rangelength:[1,100],
+				remote:"<?php echo U('ajaxChkGoodsName'); ?>"
+			},
+			market_price:{
+				required:true,
+				number:true
+			},
+			shop_price:{
+				required:true,
+				number:true
+			},
+			goods_number:{
+				//digits:true 表示必须输入整数
+				required:true,
+				digits:true
+			}
+		},
+		messages:{
+			goods_name:{
+				remote:"该值已经存在"
+			}
+		}
+	});
+	
+	UE.getEditor('goods_desc', {
+	initialFrameWidth:"80%",
+	initialFrameHeight:"500"
+});
+/****************每次点击加一张图片*******************/
+	$("#add").click(function(){
+		//先选中ul标签
+		var ul = $(this).next('ul');
+		//向这个URL中添加一张图片   pic[]是因为上传的是多张图片
+		ul.append("<li><input type='button' value='-' onclick='$(this).parent().remove();' /> <input name='pics[]' type='file'/></li>");
+	});
+	
+/***********************为商品类型绑定一个ajax事件***********************/
+	// 为商品类型绑定AJAX事件
+$("select[name=type_id]").change(function(){
+	// 先获取选择的类型的id
+	var typeid = $(this).val();
+	if(typeid != "")
+	{
+		$.ajax({
+			type : "GET",
+			url : "<?php echo U('ajaxGetAttr', '', FALSE); ?>"+U('&typeid='+typeid),
+			dataType : "json",    // 如果服务器返回的是JSON数据，那么就要加上这一项
+			success : function(data)
+			{
+				var html = "";
+				// 循环这个类型下所有的属性
+				$(data).each(function(k,v){
+					html += "<li>";
+					// 如果属性是单选的就在前面另一个+号
+					if(v.attr_type=='单选')
+						html += "<a onclick='addRow(this);' href='javascript:void(0);'>[+]</a>";
+					html += v.attr_name+" : ";
+					// 如果属性有可选值就是下拉框
+					if(v.attr_option_values != "")
+					{
+						html += "<select name='goodsattr["+v.id+"][]'>";
+						html += "<option value=''>请选择</option>";
+						// 把可选值根据,转化成一个数组
+						var _attr = v.attr_option_values.split(',');
+						// 循环每个可选值
+						$(_attr).each(function(k1,v1){
+							html += "<option value='"+v1+"'>"+v1+"</option>";
+						});
+						html += "</select>";
+					}
+					else
+						html += "<input type='text' name='goodsattr["+v.id+"]' />";
+					html += "</li>";
+				});
+				// 把拼好的LI的字符串放到页面中
+				$("#attribute").html(html);
+			}
+		});
+	}
+	else
+	{
+		// 清空属性
+		$("#attribute").html("");
+	}
+});
+// 点击a标签时添加一行的函数
+function addRow(a)
+{
+	// 先选中a标签所在的li标签
+	var li = $(a).parent();
+	// 判断a标签中是+还是-
+	if($(a).html() == "[+]")
+	{
+		// 把li克隆一份
+		var newli = li.clone();
+		// 把newli里的a标签改成内容是-
+		newli.find("a").html("[-]");
+		// 把新克隆的放到这个LI的后面
+		li.after(newli);
+	}
+	else
+		li.remove();
+}
+</script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+<Layout name="../../Layout/layout"/>
+<h1>
+    <span class="action-span"><a href="<?php echo U('lst');?>">角色列表</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加角色 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="goods_form" method="post" action="__SELF__" enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+        	 <tr>
+                <td class="label">角色名称</td>
+                <td>
+                	<input type="text" name="role_name"/>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="label">选择权限</td>
+                <td>
+						<?php foreach($data as $k=>$v): ?>
+						<input type="checkbox" name="pri_id[]" class="pri_id" level="<?php echo $v['level']; ?>" value="<?php echo $v['id']; ?>"/>
+						<?php echo str_repeat('&nbsp;',5*$v['level']).$v['pri_name'];?></br>
+						<?php endforeach;?>
+                </td>
+            </tr>
+			
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定添加 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--
+	js客户端代码定义验证的规则
+-->
+<script type="text/javascript">
+	$("form[name=goods_form]").validate({
+		rules: {
+			role_name: {
+				// required:true 必须输入的字段
+				required: true
+			}
+		}
+	});
+	
+	$(".pri_id").click(function(){
+		//先取出当前这个level
+		var cur_level = $(this).attr('level');
+		
+		//判断是选中还是取消
+		if ($(this).attr('checked')) {
+			//选择前面所有的复选框
+			var box = $(this).prevAll(":checkbox");
+			//循环每一个判断，如果level小就是小一级的
+			$(box).each(function(k,v){
+				var level = $(v).attr('level');
+				if(level<cur_level)
+					$(v).attr("checked","checked");
+				//如果判断到了顶级就退出循环
+				if(level==0)
+					return false;
+			});
+		}else{
+			//取消选中
+			//选中前面所有的复选框
+			var box = $(this).nextAll(":checkbox");
+			$(box).each(function(k,v){
+				var level= $(v).attr('level');
+				if(level>cur_level)
+					$(v).removeAttr('checked');
+				if(level==0)
+					return false;
+			});
+		}
+	});
+	
+</script>
+
+
+
+
+
+
+
+
+

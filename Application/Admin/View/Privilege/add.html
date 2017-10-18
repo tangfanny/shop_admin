@@ -1,0 +1,72 @@
+<Layout name="../../Layout/layout"/>
+<h1>
+    <span class="action-span"><a href="<?php echo U('lst');?>">权限列表</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加权限 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="goods_form" method="post" action="__SELF__" enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">上级权限</td>
+                <td>
+                	<select name="parent_id">
+                		<option value="0">顶级权限</option>
+						<?php foreach($data as $k=>$v): ?>
+						<option value="<?php echo $v['id'];?>"><?php echo str_repeat('&nbsp;',5*$v['level']).$v['pri_name'];?></option>
+						<?php endforeach;?>
+                	</select>
+                </td>
+            </tr>
+			 <tr>
+                <td class="label">权限名称</td>
+                <td>
+                	<input type="text" name="pri_name"/>
+                </td>
+            </tr>
+            </tr>
+			 <tr>
+                <td class="label">模块名称</td>
+                <td>
+                	<input type="text" name="module_name"/>
+                </td>
+            </tr>
+            </tr>
+			 <tr>
+                <td class="label">控制器名称</td>
+                <td>
+                	<input type="text" name="controller_name"/>
+                </td>
+            </tr>
+            </tr>
+			 <tr>
+                <td class="label">方法名称</td>
+                <td>
+                	<input type="text" name="action_name"/>
+                </td>
+            </tr>
+			 <tr>
+                <td class="label">排序字段</td>
+                <td>
+                	<input type="text" name="sort_num" value="100"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定添加 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+

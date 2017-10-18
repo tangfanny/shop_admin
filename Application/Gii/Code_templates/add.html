@@ -1,0 +1,90 @@
+<layout name="../../Layout/layout" />
+<h1>
+	<span class="action-span"><a href="<?php echo "<?php echo U('lst?p='.I('get.p')); ?>"; ?>">返回<?php echo $config['tableCnName']; ?>列表</a></span>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 添加新<?php echo $config['tableCnName']; ?> </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="main_form" method="POST" action="__SELF__" enctype="multipart/form-data">
+        <table cellspacing="1" cellpadding="3" width="100%">
+<?php if($config['digui'] == 1): ?>
+			<tr>
+				<td class="label">上级权限：</td>
+				<td>
+					<select name="parent_id">
+						<option value="0">顶级权限</option>
+						<?php echo "<?php foreach (\$parentData as \$k => \$v): ?>"; ?>
+						<option value="<?php echo "<?php echo \$v['{$config['pk']}']; ?>"; ?>"><?php echo "<?php echo str_repeat('-', 8*\$v['level']).\$v['{$config['diguiName']}']; ?>"; ?></option>
+						<?php echo "<?php endforeach; ?>"; ?>
+					</select>
+				</td>
+			</tr>
+<?php endif; ?>
+<?php foreach ($config['fields'] as $k => $v):if($v['type']=='null' || ($config['digui'] == 1 && 'parent_id' == $k)) continue; ?>
+            <tr>
+                <td class="label"><?php echo $v['text']; ?>：</td>
+                <td>
+<?php if($v['type'] == 'text'): ?>
+                    <input <?php if((strpos($k, 'time') !== FALSE) || (strpos($k, 'date') !== FALSE)) echo 'id="'.$k.'"'; ?> type="text" name="<?php echo $k; ?>" size="<?php if(isset($v['validate']['maxlength'])): ?>60<?php elseif((strpos($k, 'time') !== FALSE) || (strpos($k, 'date') !== FALSE)): ?>20<?php else: ?>8<?php endif; ?>" <?php if(isset($v['validate']['maxlength'])): ?>maxlength="<?php echo $v['validate']['maxlength']; ?>"<?php endif; ?> value="<?php echo $v['default']; ?>" />
+<?php elseif($v['type'] == 'password'): ?>
+                    <input type="password" size="25" name="<?php echo $k; ?>" />
+<?php elseif ($v['type'] == 'file'): ?>
+                	<input type="file" name="<?php echo $k; ?>" /> 
+<?php elseif ($v['type'] == 'html'): ?>
+                	<textarea id="<?php echo $k; ?>" name="<?php echo $k; ?>"><?php echo $v['default']; ?></textarea>
+<?php elseif ($v['type'] == 'radio'): $_i = 0; foreach ($v['values'] as $k1 => $v1): ?>
+                	<input type="radio" name="<?php echo $k; ?>" value="<?php echo $k1; ?>" <?php if($v['default'] == $v1) echo 'checked="checked"'; ?> /><?php echo $v1; ?> 
+<?php $_i++;endforeach;endif; ?>
+<?php foreach ($v['validate'] as $k1 => $v1): if($k1 == 'required'): ?>
+                	<span class="require-field">*</span>
+<?php break;endif;endforeach; ?>
+                </td>
+            </tr>
+<?php endforeach; ?>
+            <tr>
+                <td colspan="99" align="center">
+                    <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+<?php foreach ($config['fields'] as $k => $v):if((strpos($k, 'time') !== FALSE) || (strpos($k, 'date') !== FALSE)): ?>
+$("#<?php echo $k; ?>").datepicker(); 
+<?php endif;endforeach; ?>
+$("form[name='main_form']").validate({
+	ignore:"",
+	rules:{
+<?php foreach ($config['fields'] as $k => $v):if(isset($v['validate']) && !empty($v['validate'])): ?>
+		<?php echo $k; ?>:{
+<?php 
+$_c = count($v['validate']);
+$_i = 0;
+foreach ($v['validate'] as $k1 => $v1):$_i++;
+if($k1 == 'required'): ?>
+			required:true<?php if($_i < $_c) echo ','; ?> 
+<?php endif;
+if($k1 == 'maxlength'): ?>
+			maxlength:<?php echo $v1; ?><?php if($_i < $_c) echo ','; ?> 
+<?php endif;
+if($k1 == 'email'): ?>
+			email:true<?php if($_i < $_c) echo ','; ?> 
+<?php endif;
+if($k1 == 'digits'): ?>
+			digits:true<?php if($_i < $_c) echo ','; ?> 
+<?php endif;
+if($k1 == 'number'): ?>
+			number:true<?php if($_i < $_c) echo ','; ?> 
+<?php endif;
+if($k1 == 'unique'): ?>
+			remote:"__CONTROLLER__/ajax_chk_<?php echo $k; ?>_unique"<?php if($_i < $_c) echo ','; ?> 
+<?php endif; ?>
+<?php endforeach; ?>
+		},
+<?php endif;endforeach; ?>
+	}
+});
+</script>
