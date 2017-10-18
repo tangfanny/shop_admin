@@ -1,0 +1,51 @@
+<layout name="../../Layout/layout" />
+<h1>
+    <span class="action-span1"><a href="#">管理中心</a> </span>
+    <span id="search_id" class="action-span1"> - 代码生成器 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="main_form" method="POST" action="__SELF__">
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">生成类型：</td>
+                <td>
+                    <input type="radio" name="type" value="1" />生成代码
+					<input type="radio" name="type" value="2" checked="checked" />生成配置文件
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">配置文件/表 名：</td>
+                <td>
+                    <input type="text" name="config_name" size="40" maxlength="40" />
+                    多个用，隔开
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 生成 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+$("form[name='main_form']").validate({
+	rules:{
+		type:{
+			required:true,
+			range:[1,2]
+		},
+		config_name:{
+			required:true
+		}
+	},
+	submitHandler:function(form){
+    	if(confirm("确定要生成吗？"))
+        	form.submit();
+    }  
+});
+</script>

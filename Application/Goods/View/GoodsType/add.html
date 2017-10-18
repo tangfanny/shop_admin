@@ -1,0 +1,55 @@
+<Layout name="../../Layout/layout"/>
+<h1>
+    <span class="action-span"><a href="<?php echo U('lst');?>">类型列表</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加类型 </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form name="goods_type_form" method="post" action="__SELF__" enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">类型名称</td>
+                <td>
+               <input type="text" name="type_name"/>
+                </td>
+            </tr>
+			
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="submit" class="button" value=" 确定添加 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="footer">
+
+</body>
+</html>
+<!--
+	js客户端代码定义验证的规则
+-->
+<script type="text/javascript">
+	$("form[name=goods_form]").validate({
+		rules: {
+			type_name: {
+				// required:true 必须输入的字段
+				required: true,
+				rangelength: [1, 100]
+			}
+		}
+	});
+	
+</script>
+
+
+
+
+
+
+
+
+

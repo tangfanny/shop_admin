@@ -1,0 +1,154 @@
+<html><head>
+		<title>登陆页</title>
+		<meta charset="utf-8">
+		<link href="./Css/login.css" rel="stylesheet">
+		<script src="./Js/jquery-1.8.3.js"></script>
+		<script src="./Js/login.js"></script>
+		<script>
+			var address = "/jd/index.php/login/dologin.html";
+			var addressIndex = "/jd/index.php/index/index.html";
+		</script>
+	</head>
+	<body>
+
+	<!--==============logo start==============-->
+		<div class="w">
+			<div id="logo">
+				<a href="#">
+					<img src="./Images/logo-2013-l.png" style="width:170px;height:60px">
+				</a>
+				<b></b>
+			</div>
+		</div>
+	<!--==============logo end==============-->
+	<!--==============-主体start==============-->
+		<form onsubmit="return false;" method="post" id="formlogin">
+			<div id="entry" class="w1">
+				<div id="bgDiv" class="mc">
+					<div id="entry-bg"></div>
+					<div class="form">
+						<div class="item fore1">
+							<span>邮箱/用户名/已验证手机</span>
+							<div class="item-ifo">
+								<input type="text" class="text" name="username" id="username">
+								<div class="checkInfoImg">&nbsp;</div>
+								<div class="clr"></div>
+								<div class="i-name ico"></div>
+								<label class="blank invisible" id="loginname_succeed"></label>
+								<label class="hide" id="loginname_error">
+									<b></b>
+								</label>
+							</div>
+						</div>
+						<div class="clr"></div>
+						<div class="item fore2">
+							<span>密码</span>
+							<div class="item-ifo">
+								<input type="password" id="pwd" name="pwd" class="text"><div class="checkInfoImg">&nbsp;</div>
+								<div class="i-pass ico"></div>
+								<div class="clr"></div>
+								<label class="blank invisible succeed" id="loginpwd_succeed"></label>
+								<label class="hide" id="loginpwd_error">		
+									<b></b>
+								</label>
+							</div>
+						</div>
+						<div class="clr"></div>
+						<div class="item fore3">
+							<span>验证码</span>
+							<div class="item-ifo">
+								<input type="text" id="authcode" name="authcode" class="text1">
+								<div class="checkInfoImg1">&nbsp;</div>
+								<div class="clr"></div>
+								<div class="i-code ico1"><img onclick="this.src=this.src+'?imgid='+Math.random()" src="/jd/index.php/Login/setCode"></div>
+								<label class="blank invisible succeed" id="authcode_succeed"></label>
+								<label class="hide" id="authcode_error"></label>								
+							</div>
+						</div>
+						<div class="clr"></div>
+						<div class="item fore4" id="autoentry">
+							<div class="item-ifo">
+								<input type="checkbox" class="checkbox">
+								<label class="mar">自动登录</label>
+								<label><a href="/jd/index.php/findpwd/index.html">忘记密码？</a></label>
+								<div class="clr"></div>	
+							</div>
+						</div>
+						<div class="item lgin-btn2014">
+							<input type="button" value="登陆" class="btn-img btn-entry" id="loginsubmit">
+						</div>
+					</div>
+
+					<div class="coagent">
+						<label class="ftx24">
+							使用合作账号登陆
+							<span class="clr"></span>
+							
+							<span class="btns">
+								<a href="#">网易</a>
+							</span>
+
+							<span class="btns">
+								<a href="#">人人</a>
+							</span>
+							<span class="btns">
+								<a href="#">奇虎360</a>
+							</span>
+							<span class="btns">
+								<a href="#">开心</a>
+							</span>
+							<span class="btns">
+								<a href="#">豆瓣</a>
+							</span>
+							<span class="btns">
+								<a href="#">搜狐</a>
+							</span>
+							<span class="btns">
+								<a href="#">QQ</a>
+							</span>
+						</label>
+					</div>
+
+				</div>
+
+				<div class="free-regist">
+					<span>
+						<a href="/jd/index.php/register/register.html">免费注册</a>
+					</span>
+				</div>
+			</div>
+		</form>
+		<div class="w1">
+			<div class="mb" id="mb-bg"></div>
+		</div>
+		<div class="w">
+			<div id="footer-2014">
+				<div class="links">
+					<a rel="nofollow" target="_blank" href="#">关于我们</a>
+					|
+					<a rel="nofollow" target="_blank" href="#">联系我们</a>
+					|
+					<a rel="nofollow" target="_blank" href="#">人才招聘</a>
+					|
+					<a rel="nofollow" target="_blank" href="#">商家入驻</a>
+					|
+					<a rel="nofollow" target="_blank" href="#">广告服务</a>
+					|
+					<a rel="nofollow" target="_blank" href="#">手机京东</a>
+					|
+					<a target="_blank" href="#">友情链接</a>
+					|
+					<a target="_blank" href="#">销售联盟</a>
+					|
+					<a href="#" target="_blank">京东社区</a>
+					|
+					<a href="#" target="_blank">京东公益</a>
+				</div>
+				<div class="copyright">Copyright&copy;2004-2014  京东JD.com 版权所有</div>
+			</div>
+		</div>
+
+		<!--==============-主体end==============-->
+	
+</body>
+</html>
